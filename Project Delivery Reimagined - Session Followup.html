@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Delivery | Reimagined — Session Follow-Up</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a1f4e;
+    --blue: #2d5baa;
+    --teal: #3ba5b8;
+    --sky: #7ec8d9;
+    --ice: #d4eef5;
+    --mist: #e8f4f8;
+    --lavender: #eae3f6;
+    --white: #ffffff;
+    --warm-gray: #f8f7f5;
+    --text: #2c2c3a;
+    --text-light: #5a5a72;
+    --accent: #6c63ff;
+    --pink: #e8a0bf;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--text);
+    background: var(--warm-gray);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ===== WATERCOLOR BACKGROUND ===== */
+  .watercolor-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse at 10% 20%, rgba(59,165,184,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, rgba(108,99,255,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(212,238,245,0.3) 0%, transparent 70%),
+      var(--warm-gray);
+  }
+
+  /* ===== NAVIGATION ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(45,91,170,0.08);
+    padding: 0 2rem;
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(26,31,78,0.06); }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--navy);
+    text-decoration: none;
+  }
+  .nav-brand .badge {
+    background: linear-gradient(135deg, var(--teal), var(--blue));
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 2px;
+    background: var(--teal);
+    transition: width 0.3s;
+    border-radius: 2px;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .nav-mobile-toggle span {
+    display: block;
+    width: 22px; height: 2px;
+    background: var(--navy);
+    margin: 5px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 2rem 80px;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(59,165,184,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -150px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(108,99,255,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -20px); }
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59,165,184,0.1);
+    color: var(--teal);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 30px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+    animation: fadeInUp 0.8s 0.15s ease both;
+  }
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    animation: fadeInUp 0.8s 0.3s ease both;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s 0.45s ease both;
+  }
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+  }
+  .hero-meta-item svg { flex-shrink: 0; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 80px 2rem; }
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    max-width: 640px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  /* ===== HACKS GRID ===== */
+  .hacks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .hack-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(45,91,170,0.06);
+  }
+  .hack-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(26,31,78,0.08);
+  }
+
+  .hack-number {
+    position: absolute;
+    top: 1.2rem; right: 1.5rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: white;
+  }
+
+  .hack-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+  }
+
+  .hack-card h3 {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.6rem;
+  }
+
+  .hack-card p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.65;
+  }
+
+  .hack-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-top: 1rem;
+    letter-spacing: 0.3px;
+  }
+
+  .hack-1 .hack-number { background: linear-gradient(135deg, #6c63ff, #8b7cff); }
+  .hack-1 .hack-icon { background: rgba(108,99,255,0.1); }
+  .hack-1 .hack-tag { background: rgba(108,99,255,0.1); color: #6c63ff; }
+
+  .hack-2 .hack-number { background: linear-gradient(135deg, var(--blue), #4a7dd4); }
+  .hack-2 .hack-icon { background: rgba(45,91,170,0.1); }
+  .hack-2 .hack-tag { background: rgba(45,91,170,0.1); color: var(--blue); }
+
+  .hack-3 .hack-number { background: linear-gradient(135deg, var(--teal), #5dc4d1); }
+  .hack-3 .hack-icon { background: rgba(59,165,184,0.1); }
+  .hack-3 .hack-tag { background: rgba(59,165,184,0.1); color: var(--teal); }
+
+  .hack-4 .hack-number { background: linear-gradient(135deg, #e8a0bf, #d884a8); }
+  .hack-4 .hack-icon { background: rgba(232,160,191,0.12); }
+  .hack-4 .hack-tag { background: rgba(232,160,191,0.12); color: #c47094; }
+
+  .hack-5 .hack-number { background: linear-gradient(135deg, #2d9e6f, #3db882); }
+  .hack-5 .hack-icon { background: rgba(45,158,111,0.1); }
+  .hack-5 .hack-tag { background: rgba(45,158,111,0.1); color: #2d9e6f; }
+
+  /* ===== KEY TAKEAWAYS ===== */
+  .takeaways-section {
+    background: linear-gradient(180deg, var(--white) 0%, var(--mist) 100%);
+  }
+
+  .takeaway-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .takeaway-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--white);
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    border-left: 3px solid var(--teal);
+    box-shadow: 0 1px 8px rgba(26,31,78,0.04);
+  }
+
+  .takeaway-icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(59,165,184,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .takeaway-item p {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .takeaway-item strong {
+    color: var(--navy);
+  }
+
+  /* ===== RESOURCES ===== */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .resource-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: transform 0.25s, box-shadow 0.25s;
+    border: 1px solid rgba(45,91,170,0.06);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .resource-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(26,31,78,0.07);
+  }
+
+  .resource-icon {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .resource-card h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+  .resource-card p {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 1.55;
+  }
+  .resource-url {
+    font-size: 0.78rem;
+    color: var(--teal);
+    font-weight: 500;
+    margin-top: 0.4rem;
+    display: block;
+  }
+
+  /* ===== PULSE CHECK RESULTS ===== */
+  .pulse-section {
+    background: var(--white);
+  }
+
+  .pulse-header-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .pulse-responses {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    background: rgba(59,165,184,0.08);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .poll-questions {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .poll-question-card {
+    background: var(--warm-gray);
+    border-radius: 18px;
+    padding: 2rem 2.5rem;
+    border: 1px solid rgba(45,91,170,0.05);
+  }
+
+  .poll-q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .poll-q-num {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .poll-q-text {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.4;
+  }
+
+  /* Horizontal bar chart */
+  .poll-bars { display: grid; gap: 0.75rem; }
+
+  .poll-bar-row {
+    display: grid;
+    grid-template-columns: 1fr 48px;
+    align-items: end;
+    gap: 0.75rem;
+  }
+
+  .poll-bar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .poll-bar-label-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--navy);
+  }
+  .poll-bar-emoji { font-size: 1rem; flex-shrink: 0; width: 22px; text-align: center; }
+
+  .poll-bar-track {
+    width: 100%;
+    height: 30px;
+    background: rgba(45,91,170,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .poll-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 1s ease;
+  }
+  .poll-bar-fill.primary { background: linear-gradient(90deg, rgba(59,165,184,0.25), rgba(59,165,184,0.45)); }
+  .poll-bar-fill.highlight { background: linear-gradient(90deg, rgba(45,91,170,0.28), rgba(45,91,170,0.48)); }
+  .poll-bar-fill.light { background: rgba(45,91,170,0.1); }
+
+  .poll-bar-pct {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Confidence rating display */
+  .confidence-display {
+    text-align: center;
+    padding: 1rem 0;
+  }
+  .confidence-big {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--blue), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+  .confidence-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .confidence-scale {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .confidence-level {
+    text-align: center;
+    min-width: 56px;
+  }
+  .confidence-circle {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 auto 6px;
+    transition: transform 0.3s;
+  }
+  .confidence-circle:hover { transform: scale(1.1); }
+  .confidence-circle.c1 { background: rgba(45,91,170,0.08); color: var(--blue); }
+  .confidence-circle.c2 { background: rgba(45,91,170,0.12); color: var(--blue); }
+  .confidence-circle.c3 { background: rgba(59,165,184,0.2); color: var(--teal); }
+  .confidence-circle.c4 { background: rgba(59,165,184,0.35); color: #1a8a9a; }
+  .confidence-circle.c5 { background: linear-gradient(135deg, var(--teal), var(--blue)); color: white; }
+  .confidence-pct {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-light);
+  }
+
+  /* Word cloud */
+  .word-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 0.9rem;
+    padding: 1rem 0;
+    line-height: 1.8;
+  }
+  .wc-word {
+    display: inline-block;
+    transition: transform 0.2s, color 0.2s;
+    cursor: default;
+  }
+  .wc-word:hover { transform: scale(1.1); }
+  .wc-xl { font-size: 1.9rem; font-weight: 800; color: var(--navy); }
+  .wc-lg { font-size: 1.4rem; font-weight: 700; color: var(--blue); }
+  .wc-md { font-size: 1.05rem; font-weight: 600; color: var(--teal); }
+  .wc-sm { font-size: 0.85rem; font-weight: 500; color: var(--text-light); }
+
+  /* Ranking bars */
+  .rank-list { display: grid; gap: 0.6rem; }
+  .rank-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .rank-pos {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .rank-pos.r1 { background: linear-gradient(135deg, var(--teal), var(--blue)); color: white; }
+  .rank-pos.r2 { background: rgba(59,165,184,0.3); color: #1a8a9a; }
+  .rank-pos.r3 { background: rgba(59,165,184,0.2); color: var(--teal); }
+  .rank-pos.r4 { background: rgba(45,91,170,0.1); color: var(--blue); }
+  .rank-pos.r5 { background: rgba(45,91,170,0.06); color: var(--text-light); }
+
+  .rank-bar-wrap {
+    position: relative;
+    height: 38px;
+    background: rgba(45,91,170,0.04);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .rank-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding-left: 14px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--navy);
+    transition: width 1s ease;
+  }
+  .rank-bar-fill.rb1 { background: linear-gradient(90deg, rgba(59,165,184,0.2), rgba(59,165,184,0.4)); }
+  .rank-bar-fill.rb2 { background: linear-gradient(90deg, rgba(59,165,184,0.15), rgba(59,165,184,0.3)); }
+  .rank-bar-fill.rb3 { background: linear-gradient(90deg, rgba(45,91,170,0.1), rgba(45,91,170,0.2)); }
+  .rank-bar-fill.rb4 { background: rgba(45,91,170,0.1); }
+  .rank-bar-fill.rb5 { background: rgba(45,91,170,0.06); }
+
+  /* Insight callout */
+  .poll-insight {
+    margin-top: 1.25rem;
+    padding: 0.9rem 1.2rem;
+    background: rgba(59,165,184,0.06);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 10px 10px 0;
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .poll-insight strong { color: var(--navy); }
+
+  /* ===== TEAM ===== */
+  .team-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .team-member {
+    text-align: center;
+    width: 140px;
+  }
+
+  .team-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ice), var(--lavender));
+    margin: 0 auto 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--blue);
+    border: 3px solid var(--white);
+    box-shadow: 0 2px 12px rgba(26,31,78,0.08);
+  }
+
+  .team-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .team-region {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 2px;
+  }
+
+  /* ===== UPCOMING EVENT ===== */
+  .event-banner {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 60%, var(--teal) 100%);
+    border-radius: 20px;
+    padding: 3rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+  }
+  .event-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .event-info { position: relative; z-index: 1; flex: 1; }
+  .event-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .event-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .event-info p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    line-height: 1.6;
+    max-width: 500px;
+  }
+  .event-detail {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+  .event-detail span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .event-cta {
+    display: inline-block;
+    margin-top: 1.25rem;
+    padding: 0.7rem 1.8rem;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .event-cta:hover {
+    background: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.5);
+  }
+
+  /* ===== FOLLOW-UP ACTIONS ===== */
+  .actions-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 14px;
+    border: 1px solid rgba(45,91,170,0.06);
+    transition: box-shadow 0.25s;
+  }
+  .action-item:hover {
+    box-shadow: 0 4px 20px rgba(26,31,78,0.06);
+  }
+
+  .action-check {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    border: 2px solid var(--sky);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    margin-top: 2px;
+  }
+  .action-check:hover {
+    background: rgba(59,165,184,0.1);
+    border-color: var(--teal);
+  }
+
+  .action-item h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+  }
+  .action-item p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.55;
+  }
+  .action-owner {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--blue);
+    background: rgba(45,91,170,0.08);
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-top: 0.5rem;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.6);
+    padding: 3rem 2rem;
+    text-align: center;
+    font-size: 0.82rem;
+  }
+  footer .footer-brand {
+    font-family: var(--font-body);
+    font-weight: 700;
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  footer p { line-height: 1.6; }
+  footer .footer-sep {
+    width: 40px;
+    height: 2px;
+    background: var(--teal);
+    margin: 1rem auto;
+    border-radius: 2px;
+    opacity: 0.5;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-mobile-toggle { display: block; }
+
+    section { padding: 60px 1.25rem; }
+
+    .hero { min-height: auto; padding: 120px 1.25rem 60px; }
+
+    .hacks-grid { grid-template-columns: 1fr; }
+    .resources-grid { grid-template-columns: 1fr; }
+    .poll-question-card { padding: 1.5rem; }
+    .poll-bar-label-text { font-size: 0.78rem; }
+    .rank-bar-fill { font-size: 0.78rem; }
+    .confidence-scale { gap: 0.75rem; }
+
+    .event-banner { padding: 2rem; }
+    .event-info h3 { font-size: 1.4rem; }
+
+    .team-row { gap: 1.2rem; }
+    .team-member { width: 110px; }
+
+    .hero-meta { gap: 1rem; }
+  }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="watercolor-bg"></div>
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      APA CIM Innovation
+      <span class="badge">March 2026</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#hacks">5 AI Hacks</a></li>
+      <li><a href="#pulse">Pulse Check</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#actions">Next Steps</a></li>
+    </ul>
+    <button class="nav-mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Session Follow-Up
+    </div>
+    <h1>Project Delivery<br><span class="gradient-text">Reimagined</span></h1>
+    <p class="hero-sub">
+      Five AI Productivity Hacks for Project Managers, brought to you by the APA CIM Innovation Team. Here's everything you need to keep the momentum going.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        March 2026
+      </div>
+      <div class="hero-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        APA CIM Community
+      </div>
+      <div class="hero-meta-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        AI-Powered Project Delivery
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 AI HACKS -->
+<section id="hacks">
+  <div class="container">
+    <span class="section-label reveal">AI-Powered Project Delivery</span>
+    <h2 class="section-title reveal">Five AI Productivity Hacks</h2>
+    <p class="section-desc reveal">Practical, ready-to-use AI techniques demonstrated during the session. Each hack leverages tools already available to you at Maersk.</p>
+
+    <div class="hacks-grid">
+      <div class="hack-card hack-1 reveal">
+        <div class="hack-number">1</div>
+        <div class="hack-icon">🤖</div>
+        <h3>Maersk AI Hub</h3>
+        <p>Your one-stop portal for AI tools, prompt libraries, training resources, community events, and strategic initiatives. Explore ready-to-use tools like AskMyFi and contribute prompts tagged for the CIM community.</p>
+        <span class="hack-tag">ai.maersk.com</span>
+      </div>
+
+      <div class="hack-card hack-2 reveal">
+        <div class="hack-number">2</div>
+        <div class="hack-icon">📧</div>
+        <h3>Outlook Enhanced with Copilot</h3>
+        <p>Use Copilot's new features in Outlook to generate prioritized work plans and inbox action lists. Scan participant availability and automate meeting invites directly from Calendar.</p>
+        <span class="hack-tag">Premium Copilot Feature</span>
+      </div>
+
+      <div class="hack-card hack-3 reveal">
+        <div class="hack-number">3</div>
+        <div class="hack-icon">🎙️</div>
+        <h3>Meeting Transcript & Recap</h3>
+        <p>Enable transcripts in Teams meetings, download them, and use Copilot to generate recaps with tasks and owners. A workaround for those without Premium licenses: feed the transcript into Copilot Chat manually.</p>
+        <span class="hack-tag">Teams + Copilot Chat</span>
+      </div>
+
+      <div class="hack-card hack-4 reveal">
+        <div class="hack-number">4</div>
+        <div class="hack-icon">🎨</div>
+        <h3>Asana Project Logo Generator</h3>
+        <p>Generate Asana-style project icons based on customer brand identity. The prompt researches the customer's industry and colours, then creates a clean, consistent icon for your project board.</p>
+        <span class="hack-tag">Prompt on AI Hub</span>
+      </div>
+
+      <div class="hack-card hack-5 reveal">
+        <div class="hack-number">5</div>
+        <div class="hack-icon">📊</div>
+        <h3>Volume Conversion Tracker</h3>
+        <p>Track weekly project volumes against annual targets and produce analyst-level executive summaries with trend analysis, automatically. Great for management updates and senior leadership reporting.</p>
+        <span class="hack-tag">Prompt on AI Hub</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULSE CHECK RESULTS -->
+<section id="pulse" class="pulse-section">
+  <div class="container">
+    <span class="section-label reveal">Innovation Pulse Check</span>
+    <div class="pulse-header-row">
+      <h2 class="section-title reveal" style="margin-bottom:0">Where We Stand</h2>
+      <span class="pulse-responses reveal">21 responses</span>
+    </div>
+    <p class="section-desc reveal">Live poll results from the session, capturing the community's innovation readiness, confidence, barriers, and what would help most.</p>
+
+    <div class="poll-questions">
+
+      <!-- Q1: Readiness -->
+      <div class="poll-question-card reveal">
+        <div class="poll-q-header">
+          <div class="poll-q-num">1</div>
+          <div class="poll-q-text">How ready do you feel to innovate in your role today?</div>
+        </div>
+        <div class="poll-bars">
+          <div class="poll-bar-row">
+            <div class="poll-bar-content">
+              <div class="poll-bar-label-text"><span class="poll-bar-emoji">🚀</span> I actively experiment and improve things</div>
+              <div class="poll-bar-track"><div class="poll-bar-fill primary" style="width: 29%;"></div></div>
+            </div>
+            <div class="poll-bar-pct">29%</div>
+          </div>
+          <div class="poll-bar-row">
+            <div class="poll-bar-content">
+              <div class="poll-bar-label-text"><span class="poll-bar-emoji">🤙</span> Ready to innovate but need clearer direction or tools</div>
+              <div class="poll-bar-track"><div class="poll-bar-fill highlight" style="width: 52%;"></div></div>
+            </div>
+            <div class="poll-bar-pct">52%</div>
+          </div>
+          <div class="poll-bar-row">
+            <div class="poll-bar-content">
+              <div class="poll-bar-label-text"><span class="poll-bar-emoji">💡</span> I have ideas but lack time or support</div>
+              <div class="poll-bar-track"><div class="poll-bar-fill light" style="width: 10%;"></div></div>
+            </div>
+            <div class="poll-bar-pct">10%</div>
+          </div>
+          <div class="poll-bar-row">
+            <div class="poll-bar-content">
+              <div class="poll-bar-label-text"><span class="poll-bar-emoji">❄️</span> I prefer established processes</div>
+              <div class="poll-bar-track"><div class="poll-bar-fill light" style="width: 2%;"></div></div>
+            </div>
+            <div class="poll-bar-pct">0%</div>
+          </div>
+          <div class="poll-bar-row">
+            <div class="poll-bar-content">
+              <div class="poll-bar-label-text"><span class="poll-bar-emoji">🤔</span> Not sure where to start</div>
+              <div class="poll-bar-track"><div class="poll-bar-fill light" style="width: 10%;"></div></div>
+            </div>
+            <div class="poll-bar-pct">10%</div>
+          </div>
+        </div>
+        <div class="poll-insight">
+          <strong>Key insight:</strong> Over 80% of the team is either actively experimenting or ready to go. The majority just need clearer direction and better tooling to move forward with confidence.
+        </div>
+      </div>
+
+      <!-- Q2: Confidence -->
+      <div class="poll-question-card reveal">
+        <div class="poll-q-header">
+          <div class="poll-q-num">2</div>
+          <div class="poll-q-text">How confident do you feel trying new ideas at work?</div>
+        </div>
+        <div class="confidence-display">
+          <div class="confidence-big">3.7</div>
+          <div class="confidence-subtitle">Average confidence rating out of 5</div>
+          <div class="confidence-scale">
+            <div class="confidence-level">
+              <div class="confidence-circle c1">1</div>
+              <div class="confidence-pct">0%</div>
+            </div>
+            <div class="confidence-level">
+              <div class="confidence-circle c2">2</div>
+              <div class="confidence-pct">4%</div>
+            </div>
+            <div class="confidence-level">
+              <div class="confidence-circle c3">3</div>
+              <div class="confidence-pct">33%</div>
+            </div>
+            <div class="confidence-level">
+              <div class="confidence-circle c4">4</div>
+              <div class="confidence-pct">42%</div>
+            </div>
+            <div class="confidence-level">
+              <div class="confidence-circle c5">5</div>
+              <div class="confidence-pct">19%</div>
+            </div>
+          </div>
+        </div>
+        <div class="poll-insight">
+          <strong>Key insight:</strong> 61% of respondents rated themselves at 4 or 5, showing solid confidence overall. The 33% at level 3 represents an opportunity group: confident enough to try things but likely benefiting from structured support.
+        </div>
+      </div>
+
+      <!-- Q3: Barriers (word cloud) -->
+      <div class="poll-question-card reveal">
+        <div class="poll-q-header">
+          <div class="poll-q-num">3</div>
+          <div class="poll-q-text">In one word, what is the biggest barrier to innovation in your daily work?</div>
+        </div>
+        <div class="word-cloud">
+          <span class="wc-word wc-xl">Time</span>
+          <span class="wc-word wc-xl">Mindset</span>
+          <span class="wc-word wc-lg">tools</span>
+          <span class="wc-word wc-lg">direction</span>
+          <span class="wc-word wc-md">Workload</span>
+          <span class="wc-word wc-md">guidance</span>
+          <span class="wc-word wc-md">Habit change</span>
+          <span class="wc-word wc-md">challenge</span>
+          <span class="wc-word wc-sm">confidential information</span>
+          <span class="wc-word wc-sm">AI methodology</span>
+          <span class="wc-word wc-sm">purposes</span>
+          <span class="wc-word wc-sm">search assistance</span>
+          <span class="wc-word wc-sm">integrated tools</span>
+          <span class="wc-word wc-sm">Understanding of the tools</span>
+          <span class="wc-word wc-sm">Priorities</span>
+          <span class="wc-word wc-sm">right stakeholder</span>
+          <span class="wc-word wc-sm">new</span>
+          <span class="wc-word wc-sm">NO</span>
+        </div>
+        <div class="poll-insight">
+          <strong>Key insight:</strong> "Time" and "Mindset" dominate the responses. Many other barriers (tools, direction, guidance, workload) cluster around the same theme: people want to innovate but face practical friction in their day-to-day. Addressing even one of these unlocks progress for many.
+        </div>
+      </div>
+
+      <!-- Q4: Ranking -->
+      <div class="poll-question-card reveal">
+        <div class="poll-q-header">
+          <div class="poll-q-num">4</div>
+          <div class="poll-q-text">Rank what would help you innovate more effectively.</div>
+        </div>
+        <div class="rank-list">
+          <div class="rank-item">
+            <div class="rank-pos r1">1</div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar-fill rb1" style="width: 100%;">Clear priorities and direction</div>
+            </div>
+          </div>
+          <div class="rank-item">
+            <div class="rank-pos r2">2</div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar-fill rb2" style="width: 80%;">Access to AI or digital tools</div>
+            </div>
+          </div>
+          <div class="rank-item">
+            <div class="rank-pos r3">3</div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar-fill rb3" style="width: 62%;">Time to experiment</div>
+            </div>
+          </div>
+          <div class="rank-item">
+            <div class="rank-pos r4">4</div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar-fill rb4" style="width: 42%;">Leadership support</div>
+            </div>
+          </div>
+          <div class="rank-item">
+            <div class="rank-pos r5">5</div>
+            <div class="rank-bar-wrap">
+              <div class="rank-bar-fill rb5" style="width: 28%;">Recognition for ideas</div>
+            </div>
+          </div>
+        </div>
+        <div class="poll-insight">
+          <strong>Key insight:</strong> The top two items, clear priorities and access to tools, are directly actionable by the innovation team. The session's five hacks already address the tools gap. Next, establishing clearer direction for where to apply those tools will have the highest impact.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- KEY TAKEAWAYS -->
+<section class="takeaways-section">
+  <div class="container">
+    <span class="section-label reveal">Session Highlights</span>
+    <h2 class="section-title reveal">Key Takeaways</h2>
+
+    <div class="takeaway-list">
+      <div class="takeaway-item reveal">
+        <div class="takeaway-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p><strong>Copilot Chat is available to everyone</strong> at Maersk and can be used for prompt-based productivity immediately, even without a Premium license.</p>
+      </div>
+      <div class="takeaway-item reveal">
+        <div class="takeaway-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p><strong>Meeting recap workaround:</strong> Download your Teams transcript, then paste it into Copilot Chat to generate a structured recap with action items.</p>
+      </div>
+      <div class="takeaway-item reveal">
+        <div class="takeaway-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p><strong>Premium Copilot licenses are limited</strong> to approximately 3,000 across Maersk. Features like automated meeting summaries require this licence, but core Copilot Chat is universally accessible.</p>
+      </div>
+      <div class="takeaway-item reveal">
+        <div class="takeaway-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p><strong>Two prompts published on AI Hub:</strong> The Asana Project Logo prompt and the Volume Tracker prompt are live and tagged for CIM. Try them and contribute your own.</p>
+      </div>
+      <div class="takeaway-item reveal">
+        <div class="takeaway-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p><strong>Innovation Champion recognition</strong> will be awarded by year-end based on community consensus and impact. Start contributing ideas now.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="container">
+    <span class="section-label reveal">Your Toolkit</span>
+    <h2 class="section-title reveal">Resources & Links</h2>
+    <p class="section-desc reveal">Bookmark these. They are your go-to references for AI tools, prompts, and learning opportunities at Maersk.</p>
+
+    <div class="resources-grid">
+      <a class="resource-card reveal" href="https://ai.maersk.com" target="_blank" rel="noopener">
+        <div class="resource-icon" style="background: rgba(108,99,255,0.1);">🌐</div>
+        <div>
+          <h4>Maersk AI Hub</h4>
+          <p>Central portal for all AI tools, training, community, and strategy at Maersk.</p>
+          <span class="resource-url">ai.maersk.com</span>
+        </div>
+      </a>
+
+      <a class="resource-card reveal" href="https://go.maersk.io/m365copilot" target="_blank" rel="noopener">
+        <div class="resource-icon" style="background: rgba(45,91,170,0.1);">📚</div>
+        <div>
+          <h4>M365 Copilot Resources</h4>
+          <p>Internal knowledge base for Copilot features, guides, and best practices.</p>
+          <span class="resource-url">go.maersk.io/m365copilot</span>
+        </div>
+      </a>
+
+      <a class="resource-card reveal" href="https://aka.ms/promptgallery" target="_blank" rel="noopener">
+        <div class="resource-icon" style="background: rgba(59,165,184,0.1);">💡</div>
+        <div>
+          <h4>Microsoft Prompt Gallery</h4>
+          <p>Browse and discover curated prompts for Microsoft 365 Copilot.</p>
+          <span class="resource-url">aka.ms/promptgallery</span>
+        </div>
+      </a>
+
+      <a class="resource-card reveal" href="https://aka.ms/mslearn" target="_blank" rel="noopener">
+        <div class="resource-icon" style="background: rgba(232,160,191,0.12);">🎓</div>
+        <div>
+          <h4>Microsoft Learn</h4>
+          <p>Free courses and certifications for M365 Copilot and broader AI skills.</p>
+          <span class="resource-url">aka.ms/mslearn</span>
+        </div>
+      </a>
+
+      <a class="resource-card reveal" href="https://forms.office.com/Pages/ResponsePage.aspx?id=BVzXBRr650Kc8etBbDlvLSdaFkKoOnpKupbGvGgKOYVUNFYwT0pBMFpJWTAzU0kwTkxQU0c4ODdHNSQlQCN0PWcu" target="_blank" rel="noopener">
+        <div class="resource-icon" style="background: rgba(45,158,111,0.1);">💡</div>
+        <div>
+          <h4>Innovation Idea Submission</h4>
+          <p>Have an idea to improve how CIM works? Submit it through the form and choose to participate in developing it collaboratively.</p>
+          <span class="resource-url">forms.office.com</span>
+        </div>
+      </a>
+
+      <a class="resource-card reveal" href="https://engage.cloud.microsoft/main/org/maerskgroup.com/groups/eyJfdHlwZSI6Ikdyb3VwIiwiaWQiOiIyNTA2NTQyMzY2NzIifQ/all" target="_blank" rel="noopener">
+        <div class="resource-icon" style="background: rgba(108,99,255,0.08);">🚀</div>
+        <div>
+          <h4>Innovation Hub (Viva Engage)</h4>
+          <p>Share ideas, join discussions, and collaborate on innovation initiatives within CIM.</p>
+          <span class="resource-url">engage.cloud.microsoft</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" style="background: var(--white);">
+  <div class="container" style="text-align: center;">
+    <span class="section-label reveal">APA CIM Innovation Team</span>
+    <h2 class="section-title reveal" style="text-align: center;">Meet the Team</h2>
+    <p class="section-desc reveal" style="margin-left: auto; margin-right: auto; text-align: center;">Formed after a leadership offsite to drive innovation, experiment with new ideas, and deliver practical improvements across the APA region.</p>
+
+    <div class="team-row reveal">
+      <div class="team-member">
+        <div class="team-avatar">A</div>
+        <div class="team-name">Aziz</div>
+        <div class="team-region">Lead</div>
+      </div>
+      <div class="team-member">
+        <div class="team-avatar">V</div>
+        <div class="team-name">Veronica</div>
+        <div class="team-region">Greater China</div>
+      </div>
+      <div class="team-member">
+        <div class="team-avatar">C</div>
+        <div class="team-name">Candice</div>
+        <div class="team-region">Oceania & North East Asia</div>
+      </div>
+      <div class="team-member">
+        <div class="team-avatar">L</div>
+        <div class="team-name">Lisa</div>
+        <div class="team-region">Mekong</div>
+      </div>
+      <div class="team-member">
+        <div class="team-avatar">MF</div>
+        <div class="team-name">Mary Faith</div>
+        <div class="team-region">South East Asia</div>
+      </div>
+    </div>
+
+    <p class="reveal" style="margin-top: 2rem; font-size: 0.88rem; color: var(--text-light);">
+      The team focuses on three workstreams: <strong>AI-Powered Project Delivery</strong>, <strong>Digital Solutions & Innovation</strong>, and <strong>Innovation Culture & Community</strong>. Future sessions will feature other team members as presenters.
+    </p>
+  </div>
+</section>
+
+<!-- UPCOMING EVENT -->
+<section id="event">
+  <div class="container">
+    <div class="event-banner reveal">
+      <div class="event-info">
+        <span class="event-tag">Upcoming Event</span>
+        <h3>Copilot Chat for All</h3>
+        <p>Join a 1.5-hour Copilot Chat session with Microsoft. Learn practical ways to save time, improve productivity, and get more value from AI in your daily workflow. Afterwards, you will begin a 30-day prompt challenge to turn learning into habit.</p>
+        <div class="event-detail">
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            1 hour 30 minutes
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Virtual (Teams)
+          </span>
+        </div>
+        <a href="https://maersk.csod.com/ui/lms-learning-details/app/event/888148ae-1ec3-469f-9cf1-4b0087525696?isOnePlayer=true" target="_blank" rel="noopener" class="event-cta">Register Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOLLOW-UP ACTIONS -->
+<section id="actions">
+  <div class="container">
+    <span class="section-label reveal">What's Next</span>
+    <h2 class="section-title reveal">Follow-Up Actions</h2>
+    <p class="section-desc reveal">Keep the momentum going. Here are the concrete next steps from the session.</p>
+
+    <div class="actions-list">
+      <div class="action-item reveal">
+        <div class="action-check">
+          <svg width="0" height="0" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Explore the Maersk AI Hub</h4>
+          <p>Visit ai.maersk.com and browse the prompt library. Try the Asana Project Logo and Volume Tracker prompts. Contribute your own prompts tagged for CIM.</p>
+        </div>
+      </div>
+
+      <div class="action-item reveal">
+        <div class="action-check">
+          <svg width="0" height="0" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Try the meeting recap workaround</h4>
+          <p>In your next Teams meeting, enable transcription. After the meeting, download the transcript and paste it into Copilot Chat for a structured recap.</p>
+        </div>
+      </div>
+
+      <div class="action-item reveal">
+        <div class="action-check">
+          <svg width="0" height="0" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Sign up for Copilot Chat for All</h4>
+          <p>Register for the upcoming 1.5-hour Copilot Chat training session and take on the 30-day prompt challenge that follows. <a href="https://maersk.csod.com/ui/lms-learning-details/app/event/888148ae-1ec3-469f-9cf1-4b0087525696?isOnePlayer=true" target="_blank" rel="noopener" style="color: var(--teal); font-weight: 600;">Register here</a>.</p>
+        </div>
+      </div>
+
+      <div class="action-item reveal">
+        <div class="action-check">
+          <svg width="0" height="0" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Submit an innovation idea</h4>
+          <p>Use the idea submission form to share your ideas. You can choose to participate in developing them collaboratively. <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=BVzXBRr650Kc8etBbDlvLSdaFkKoOnpKupbGvGgKOYVUNFYwT0pBMFpJWTAzU0kwTkxQU0c4ODdHNSQlQCN0PWcu" target="_blank" rel="noopener" style="color: var(--teal); font-weight: 600;">Submit here</a>.</p>
+        </div>
+      </div>
+
+      <div class="action-item reveal">
+        <div class="action-check">
+          <svg width="0" height="0" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Confirm Copilot meeting recap rollout</h4>
+          <p>Follow up with Microsoft or internal IT to confirm if and when the automated meeting recap feature will be enabled for standard Maersk Teams users.</p>
+          <span class="action-owner">Owner: Aziz</span>
+        </div>
+      </div>
+
+      <div class="action-item reveal" style="opacity: 0.6;">
+        <div class="action-check" style="background: rgba(59,165,184,0.15); border-color: var(--teal);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Share innovation idea submission details</h4>
+          <p>Distribute clear instructions on how to submit innovation ideas via the new form and clarify participation options for the community.</p>
+          <span class="action-owner">Owner: Aziz</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">APA CIM Innovation Team</div>
+  <p>Project Delivery | Reimagined</p>
+  <div class="footer-sep"></div>
+  <p>Maersk &middot; March 2026<br>Test bold ideas, run quick pilots, and deliver practical improvements.</p>
+</footer>
+
+<script>
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Checkbox toggle
+  document.querySelectorAll('.action-check').forEach(check => {
+    check.addEventListener('click', function() {
+      const svg = this.querySelector('svg');
+      const isChecked = svg.getAttribute('width') === '14';
+      svg.setAttribute('width', isChecked ? '0' : '14');
+      svg.setAttribute('height', isChecked ? '0' : '14');
+      this.style.background = isChecked ? 'transparent' : 'rgba(59,165,184,0.15)';
+      this.style.borderColor = isChecked ? 'var(--sky)' : 'var(--teal)';
+      this.closest('.action-item').style.opacity = isChecked ? '1' : '0.6';
+    });
+  });
+
+  // Mobile nav
+  const style = document.createElement('style');
+  style.textContent = `
+    @media (max-width: 768px) {
+      .nav-links.show {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 64px; left: 0; right: 0;
+        background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(20px);
+        padding: 1.5rem 2rem;
+        gap: 1.2rem;
+        border-bottom: 1px solid rgba(45,91,170,0.08);
+        box-shadow: 0 8px 24px rgba(26,31,78,0.06);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+</script>
+</body>
+</html>
